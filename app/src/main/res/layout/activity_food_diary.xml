@@ -11,6 +11,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="24sp"
+        app:autoSizeMaxTextSize="120pt"
+        app:autoSizeMinTextSize="12pt"
+        app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -31,13 +34,24 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.35" />
 
-    <Button
-        android:id="@+id/buttonSubmit"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.65" />
+
+    <Button
+        android:id="@+id/buttonSubmit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="#8BC34A"
         android:onClick="submitFood"
-        android:text="Submit"
+        android:text="@string/submit"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
@@ -45,10 +59,13 @@
 
     <EditText
         android:id="@+id/editTextNumberCaloriesAmount"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:autofillHints=""
         android:ems="10"
-        android:hint="Amount of calories"
+        android:hint="@string/amount_of_calories"
         android:inputType="number"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
@@ -57,13 +74,15 @@
 
     <EditText
         android:id="@+id/editTextFoodName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:contentDescription="Name"
-        android:ems="10"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
 
-        android:hint="Food name"
+        android:layout_marginBottom="16dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/food_name"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/editTextNumberCaloriesAmount"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
@@ -74,17 +93,10 @@
         android:id="@+id/listViewFoodList"
         android:layout_width="378dp"
         android:layout_height="447dp"
-        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.65" />
 </androidx.constraintlayout.widget.ConstraintLayout>
