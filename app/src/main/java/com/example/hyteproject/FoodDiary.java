@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.AdapterView;
 
@@ -22,7 +24,6 @@ public class FoodDiary extends AppCompatActivity {
     private Food food;
     private ArrayList<String> foodList;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,9 +33,6 @@ public class FoodDiary extends AppCompatActivity {
         foodName = findViewById(R.id.editTextFoodName);
         calories = findViewById(R.id.editTextNumberCaloriesAmount);
         foodList = new ArrayList<>();
-
-        foodListview.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, foodList));
-
     }
 
     public void submitFood(View view){
@@ -43,11 +41,11 @@ public class FoodDiary extends AppCompatActivity {
         int submittedCalories = Integer.valueOf(calories.getText().toString());
         food = new Food(submittedName, submittedCalories);
         foodList.add(food.getFood());
-        foodListview.invalidateViews();
 
-        Log.d("Submit", "Tieto lähetetty");
+        final ArrayAdapter adapter = (new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, foodList));
+        foodListview.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+        //Log.d("Submit", "Information sent");
     }
-
-
-
 }

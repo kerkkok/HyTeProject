@@ -10,7 +10,7 @@ public class Food {
     public Food (String name, int calories){
         this.name = name;
         this.calories = calories;
-        Log.d("Olio", "Olio luotu");
+        //Log.d("Olio", "Olio luotu");
     }
 
     public String getName(){
@@ -22,6 +22,6 @@ public class Food {
     }
 
     public String getFood(){
-        return this.name + ", " + Integer.toString(this.calories) + " kaloria.";
+        return this.name + ", " + Integer.toString(this.calories) + " Calories.";
     }
 }
