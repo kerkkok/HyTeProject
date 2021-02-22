@@ -3,7 +3,6 @@ package com.example.hyteproject;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Adapter;
@@ -13,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.AdapterView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -23,6 +23,8 @@ public class FoodDiary extends AppCompatActivity {
     private EditText foodName;
     private Food food;
     private ArrayList<String> foodList;
+    private TextView textViewCalorieCounter;
+    private int totalCalories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +43,13 @@ public class FoodDiary extends AppCompatActivity {
         int submittedCalories = Integer.valueOf(calories.getText().toString());
         food = new Food(submittedName, submittedCalories);
         foodList.add(food.getFood());
+        totalCalories += Integer.valueOf(submittedCalories);
+
+        textViewCalorieCounter = findViewById(R.id.textViewTotalCalories);
+        textViewCalorieCounter.setText(Integer.toString(totalCalories));
 
         final ArrayAdapter adapter = (new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, foodList));
         foodListview.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-
-        //Log.d("Submit", "Information sent");
     }
 }

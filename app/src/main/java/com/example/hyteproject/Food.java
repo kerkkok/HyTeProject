@@ -6,11 +6,11 @@ public class Food {
 
     private String name;
     private int calories;
+    private int totalCalories;
 
     public Food (String name, int calories){
         this.name = name;
         this.calories = calories;
-        //Log.d("Olio", "Olio luotu");
     }
 
     public String getName(){
@@ -23,5 +23,10 @@ public class Food {
 
     public String getFood(){
         return this.name + ", " + Integer.toString(this.calories) + " Calories.";
+    }
+
+    public int getTotalCalories(){
+        totalCalories = this.calories + totalCalories;
+        return totalCalories;
     }
 }
