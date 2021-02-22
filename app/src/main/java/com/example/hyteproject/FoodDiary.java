@@ -2,6 +2,8 @@ package com.example.hyteproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,7 +31,10 @@ public class FoodDiary extends AppCompatActivity {
     private Food food;
     private ArrayList<String> foodList;
     private TextView textViewCalorieCounter;
-    private int totalCalories;
+    private SharedPreferences sharedPreferencesFoodInformation;
+    private final String totalCaloriesKey = "totalCaloriesKey";
+
+    private int totalCalories = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +43,12 @@ public class FoodDiary extends AppCompatActivity {
         foodListview = findViewById(R.id.listViewFoodList);
         foodName = findViewById(R.id.editTextFoodName);
         calories = findViewById(R.id.editTextNumberCaloriesAmount);
+        textViewCalorieCounter = findViewById(R.id.textViewTotalCalories);
         foodList = new ArrayList<>();
+
+        sharedPreferencesFoodInformation = getSharedPreferences("TotalCaloriesInformation", Activity.MODE_PRIVATE);
+        totalCalories = sharedPreferencesFoodInformation.getInt(totalCaloriesKey, 0);
+        textViewCalorieCounter.setText(Integer.toString(totalCalories));
     }
 
 
@@ -55,11 +65,18 @@ public class FoodDiary extends AppCompatActivity {
         foodList.add(food.getFood());
         totalCalories += Integer.valueOf(submittedCalories);
 
-        textViewCalorieCounter = findViewById(R.id.textViewTotalCalories);
         textViewCalorieCounter.setText(Integer.toString(totalCalories));
 
         final ArrayAdapter adapter = (new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, foodList));
         foodListview.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+    }
+
+
+    protected void onPause(){
+        super.onPause();
+        SharedPreferences.Editor prefEditor = sharedPreferencesFoodInformation.edit();
+        prefEditor.putInt(totalCaloriesKey, totalCalories);
+        prefEditor.commit();
     }
 }
