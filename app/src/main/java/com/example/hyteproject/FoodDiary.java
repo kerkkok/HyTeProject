@@ -16,6 +16,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/**
+ * FoodDiary for the application. User can keep track of his daily total calories by inputting them to the application.
+ * @author Malin Mortti, Kyyrö Kerkko
+ * @version 1.0
+ */
 public class FoodDiary extends AppCompatActivity {
 
     private ListView foodListview;
@@ -30,13 +35,18 @@ public class FoodDiary extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_diary);
-
         foodListview = findViewById(R.id.listViewFoodList);
         foodName = findViewById(R.id.editTextFoodName);
         calories = findViewById(R.id.editTextNumberCaloriesAmount);
         foodList = new ArrayList<>();
     }
 
+
+    /**
+     * Submits the user input for food name and calorie amount to a list and shows it to the user
+     * adds calories to a total calorie count
+     *
+     */
     public void submitFood(View view){
 
         String submittedName = foodName.getText().toString();
