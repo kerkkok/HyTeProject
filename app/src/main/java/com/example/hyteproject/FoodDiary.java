@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -53,8 +54,8 @@ public class FoodDiary extends AppCompatActivity {
         sharedPreferencesFoodInformation = getSharedPreferences("TotalCaloriesInformation", Activity.MODE_PRIVATE);
         totalCalories = sharedPreferencesFoodInformation.getInt(totalCaloriesKey, 0);
         textViewCalorieCounter.setText(Integer.toString(totalCalories));
+        setTime();
 
-        calendar = Calendar.getInstance();
         /*
         pendingIntent = PendingIntent.getService(context 0, new Intent(context, MyService.class), PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
@@ -85,6 +86,23 @@ public class FoodDiary extends AppCompatActivity {
         final ArrayAdapter adapter = (new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, foodList));
         foodListview.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+    }
+
+    public void setTime(){
+        Calendar c = Calendar.getInstance();
+        c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH),
+                11, 14, 0);
+
+        setReset(c.getTimeInMillis());
+    }
+
+    private void setReset(long time){
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, DailyReset.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,intent, 0);
+
+        alarmManager.setRepeating(AlarmManager.RTC, time, AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
 
