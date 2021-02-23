@@ -34,6 +34,7 @@ public class FoodDiary extends AppCompatActivity {
     private SharedPreferences sharedPreferencesFoodInformation;
     private final String totalCaloriesKey = "totalCaloriesKey";
 
+    private int submittedCalories = 0;
     private int totalCalories = 0;
 
     @Override
@@ -60,10 +61,14 @@ public class FoodDiary extends AppCompatActivity {
     public void submitFood(View view){
 
         String submittedName = foodName.getText().toString();
-        int submittedCalories = Integer.valueOf(calories.getText().toString());
-        food = new Food(submittedName, submittedCalories);
-        foodList.add(food.getFood());
-        totalCalories += Integer.valueOf(submittedCalories);
+        if(calories.getText().toString().isEmpty() == false) {
+            submittedCalories = Integer.valueOf(calories.getText().toString());
+            if (submittedName != null) {
+                food = new Food(submittedName, submittedCalories);
+            }
+            foodList.add(food.getFood());
+            totalCalories += Integer.valueOf(submittedCalories);
+        }
 
         textViewCalorieCounter.setText(Integer.toString(totalCalories));
 
