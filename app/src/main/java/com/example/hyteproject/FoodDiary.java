@@ -3,19 +3,18 @@ package com.example.hyteproject;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
+import java.util.Calendar;
 import java.util.ArrayList;
 
 /**
@@ -33,6 +32,10 @@ public class FoodDiary extends AppCompatActivity {
     private TextView textViewCalorieCounter;
     private SharedPreferences sharedPreferencesFoodInformation;
     private final String totalCaloriesKey = "totalCaloriesKey";
+    private AlarmManager alarmManager;
+    private PendingIntent pendingIntent;
+    private Calendar calendar;
+    private int day;
 
     private int submittedCalories = 0;
     private int totalCalories = 0;
@@ -50,6 +53,13 @@ public class FoodDiary extends AppCompatActivity {
         sharedPreferencesFoodInformation = getSharedPreferences("TotalCaloriesInformation", Activity.MODE_PRIVATE);
         totalCalories = sharedPreferencesFoodInformation.getInt(totalCaloriesKey, 0);
         textViewCalorieCounter.setText(Integer.toString(totalCalories));
+
+        calendar = Calendar.getInstance();
+        /*
+        pendingIntent = PendingIntent.getService(context 0, new Intent(context, MyService.class), PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        */
     }
 
 
