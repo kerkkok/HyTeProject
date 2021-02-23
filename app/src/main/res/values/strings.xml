@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">HyTeProject</string>
+    <string name="food_diary">Food Diary</string>
+    <string name="target">Calorie target</string>
 </resources>
