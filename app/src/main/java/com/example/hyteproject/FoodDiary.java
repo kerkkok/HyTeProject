@@ -33,10 +33,7 @@ public class FoodDiary extends AppCompatActivity {
     private TextView textViewCalorieCounter;
     private SharedPreferences sharedPreferencesFoodInformation;
     private final String totalCaloriesKey = "totalCaloriesKey";
-    private AlarmManager alarmManager;
-    private PendingIntent pendingIntent;
-    private Calendar calendar;
-    private int day;
+
 
     private int submittedCalories = 0;
     private int totalCalories = 0;
@@ -56,11 +53,6 @@ public class FoodDiary extends AppCompatActivity {
         textViewCalorieCounter.setText(Integer.toString(totalCalories));
         setTime();
 
-        /*
-        pendingIntent = PendingIntent.getService(context 0, new Intent(context, MyService.class), PendingIntent.FLAG_UPDATE_CURRENT);
-        alarmManager = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-        */
     }
 
 
@@ -91,7 +83,7 @@ public class FoodDiary extends AppCompatActivity {
     public void setTime(){
         Calendar c = Calendar.getInstance();
         c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH),
-                11, 14, 0);
+                0, 0, 0);
 
         setReset(c.getTimeInMillis());
     }
