@@ -1,13 +1,9 @@
 package com.example.hyteproject;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import android.util.Log;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +14,11 @@ public class FoodDataManager {
     private static String totalCaloriesKey = "totalCaloriesKey";
     private static String dailyFoodsKey = "dailyFoodsKey";
 
+    /**
+     * Writes the ArrayList information into the SharedPreferences using the help of gson.
+     * @param context
+     * @param list food ArrayList from FoodDiary
+     */
     public static void writeArrayInPref(Context context, List<String> list){
 
         Gson gson = new Gson();
@@ -28,6 +29,11 @@ public class FoodDataManager {
         prefEditor.commit();
     }
 
+    /**
+     * Gets gson from SharedPreferences and turns it back into ArrayList
+     * @param context
+     * @return ArrayList with food information
+     */
     public static ArrayList<String> readArrayFromPref(Context context){
 
         SharedPreferences sharedPref = context.getSharedPreferences("TotalCaloriesInformation", Context.MODE_PRIVATE);
@@ -38,6 +44,11 @@ public class FoodDataManager {
         return list;
     }
 
+    /**
+     * Writes totalCalories in SharedPreferences
+     * @param context
+     * @param calories totalCalories from FoodDiary
+     */
     public static void writeCaloriesInPref(Context context, int calories){
 
         SharedPreferences sharedPref = context.getSharedPreferences("TotalCaloriesInformation", Context.MODE_PRIVATE);
@@ -46,6 +57,11 @@ public class FoodDataManager {
         prefEditor.commit();
     }
 
+    /**
+     * Gets totalCalories from SharedPreferences
+     * @param context
+     * @return totalCalories
+     */
     public static int readCaloriesInPref(Context context){
 
         SharedPreferences sharedPref = context.getSharedPreferences("TotalCaloriesInformation", Context.MODE_PRIVATE);
