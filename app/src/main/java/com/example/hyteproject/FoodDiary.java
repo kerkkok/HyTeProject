@@ -117,7 +117,6 @@ public class FoodDiary extends AppCompatActivity {
         alarmManager.setRepeating(AlarmManager.RTC, time, AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
-
     protected void onPause(){
         super.onPause();
     }
