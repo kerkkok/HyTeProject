@@ -33,6 +33,6 @@ public class DailyReset extends BroadcastReceiver {
         prefEditor.commit();
 
         Log.d("DailyReset", "Reset happened");
-        System.exit(1);
+        //System.exit(1);
     }
 }

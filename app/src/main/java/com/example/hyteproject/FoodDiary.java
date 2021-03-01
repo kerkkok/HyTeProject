@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -60,6 +61,22 @@ public class FoodDiary extends AppCompatActivity {
         totalCalories = FoodDataManager.readCaloriesInPref(this);
         textViewCalorieCounter.setText(Integer.toString(totalCalories));
         setTime();
+
+        /*
+        foodListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //Toast.makeText(getApplicationContext(), foodList.get(i), Toast.LENGTH_SHORT).show();
+                if(foodList.size() >= 0) {
+                    foodList.remove(i);
+                    totalCalories -= Integer.valueOf(submittedCalories);
+                    textViewCalorieCounter.setText(Integer.toString(totalCalories));
+                    foodListView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        });*/
+
     }
 
 
@@ -82,8 +99,6 @@ public class FoodDiary extends AppCompatActivity {
             Toast.makeText(this, "Please insert both food name and calories amount", Toast.LENGTH_SHORT).show();
         }
 
-        FoodDataManager.writeCaloriesInPref(getApplicationContext(), totalCalories);
-        FoodDataManager.writeArrayInPref(getApplicationContext(), foodList);
         textViewCalorieCounter.setText(Integer.toString(totalCalories));
 
         final ArrayAdapter adapter = (new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, foodList));
@@ -92,8 +107,8 @@ public class FoodDiary extends AppCompatActivity {
     }
 
     /**
-     * Sets a specific clock time for a reset.
-     */
+    * Sets a specific clock time for a reset.
+    */
     public void setTime(){
         Calendar c = Calendar.getInstance();
         c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH),
@@ -113,8 +128,9 @@ public class FoodDiary extends AppCompatActivity {
         alarmManager.setRepeating(AlarmManager.RTC, time, AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
-    protected void onPause(){
+    protected void onPause() {
         super.onPause();
+        FoodDataManager.writeCaloriesInPref(getApplicationContext(), totalCalories);
+        FoodDataManager.writeArrayInPref(getApplicationContext(), foodList);
     }
-
 }
