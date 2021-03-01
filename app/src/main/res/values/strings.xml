@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">HyTeProject</string>
+    <string name="steps">0</string>
 </resources>
