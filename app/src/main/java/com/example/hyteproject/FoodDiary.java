@@ -65,9 +65,7 @@ public class FoodDiary extends AppCompatActivity {
         foodListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //Toast.makeText(getApplicationContext(), foodList.get(i), Toast.LENGTH_SHORT).show();
                 if(foodList.size() >= 0) {
-
                     String splitString = foodList.get(i);
 
                     String[] split = splitString.split(", |\\ C");
@@ -97,16 +95,16 @@ public class FoodDiary extends AppCompatActivity {
      *
      */
     public void submitFood(View view){
-
         String submittedName = foodName.getText().toString();
         if(calories.getText().toString().isEmpty() == false) {
             submittedCalories = Integer.valueOf(calories.getText().toString());
             submittedName = submittedName.replaceAll("[^a-zA-Z0-9]", "");
             if (!submittedName.isEmpty()) {
-
                 food = new Food(submittedName, submittedCalories);
                 foodList.add(food.getFood());
                 totalCalories += Integer.valueOf(submittedCalories);
+                calories.getText().clear();
+                foodName.getText().clear();
             } else {
                 Toast.makeText(this, "Please insert both food name and calories amount", Toast.LENGTH_SHORT).show();
             }
@@ -114,7 +112,6 @@ public class FoodDiary extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Please insert both food name and calories amount", Toast.LENGTH_SHORT).show();
         }
-
         textViewCalorieCounter.setText(Integer.toString(totalCalories));
 
         final ArrayAdapter adapter = (new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, foodList));
@@ -137,7 +134,6 @@ public class FoodDiary extends AppCompatActivity {
      * @param time time for a reset
      */
     private void setReset(long time){
-
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, DailyReset.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,intent, 0);
