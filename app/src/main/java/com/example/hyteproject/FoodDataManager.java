@@ -13,6 +13,7 @@ public class FoodDataManager {
 
     private static String totalCaloriesKey = "totalCaloriesKey";
     private static String dailyFoodsKey = "dailyFoodsKey";
+    private static String yesterdaysCaloriesKey = "yesterdaysCaloriesKey";
 
     /**
      * Writes the ArrayList information into the SharedPreferences using the help of gson.
@@ -69,7 +70,17 @@ public class FoodDataManager {
         return calories;
     }
 
+    /**
+     * Gets totalCalories from SharedPreferences
+     * @param context
+     * @return yesterdaysCalories
+     */
+    public static int readYesterdaysCaloriesInPref(Context context){
 
+        SharedPreferences sharedPref = context.getSharedPreferences("YesterdaysCalorieInformation", Context.MODE_PRIVATE);
+        int calories = sharedPref.getInt(yesterdaysCaloriesKey, 0);
+        return calories;
+    }
 
 
 }

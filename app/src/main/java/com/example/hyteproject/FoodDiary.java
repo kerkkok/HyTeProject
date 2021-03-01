@@ -31,8 +31,10 @@ public class FoodDiary extends AppCompatActivity {
     private EditText foodName;
     private Food food;
     private ArrayList<String> foodList;
+    private TextView textViewYesterdaysCalories;
     private TextView textViewCalorieCounter;
     private int submittedCalories = 0;
+    private int yesterdaysCalories = 0;
     private int totalCalories = 0;
 
     @Override
@@ -42,6 +44,7 @@ public class FoodDiary extends AppCompatActivity {
         foodListView = findViewById(R.id.listViewFoodList);
         foodName = findViewById(R.id.editTextFoodName);
         calories = findViewById(R.id.editTextNumberCaloriesAmount);
+        textViewYesterdaysCalories = findViewById(R.id.textViewYesterdaysCalories);
         textViewCalorieCounter = findViewById(R.id.textViewTotalCalories);
 
         foodList = FoodDataManager.readArrayFromPref(this);
@@ -51,6 +54,8 @@ public class FoodDiary extends AppCompatActivity {
         foodListView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
+        yesterdaysCalories = FoodDataManager.readYesterdaysCaloriesInPref(this);
+        textViewYesterdaysCalories.setText(Integer.toString(yesterdaysCalories));
 
         totalCalories = FoodDataManager.readCaloriesInPref(this);
         textViewCalorieCounter.setText(Integer.toString(totalCalories));
@@ -92,7 +97,7 @@ public class FoodDiary extends AppCompatActivity {
     public void setTime(){
         Calendar c = Calendar.getInstance();
         c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH),
-                16, 41, 30);
+                12, 56, 0);
         setReset(c.getTimeInMillis());
     }
 
