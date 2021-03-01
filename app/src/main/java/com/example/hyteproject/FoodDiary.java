@@ -3,7 +3,6 @@ package com.example.hyteproject;
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -62,20 +61,32 @@ public class FoodDiary extends AppCompatActivity {
         textViewCalorieCounter.setText(Integer.toString(totalCalories));
         setTime();
 
-        /*
+
         foodListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //Toast.makeText(getApplicationContext(), foodList.get(i), Toast.LENGTH_SHORT).show();
                 if(foodList.size() >= 0) {
+
+                    String splitString = foodList.get(i);
+
+                    String[] split = splitString.split(", |\\ C");
+                    String splitResult = split[1];
+                    Log.d("Pepe", splitResult);
+                    totalCalories -= Integer.parseInt(splitResult);
+
                     foodList.remove(i);
-                    totalCalories -= Integer.valueOf(submittedCalories);
+
+                    SharedPreferences sharedPref = getSharedPreferences("TotalCaloriesInformation", Context.MODE_PRIVATE);
+                    sharedPref.edit().clear().commit();
+                    FoodDataManager.writeArrayInPref(getApplicationContext(), foodList);
+
                     textViewCalorieCounter.setText(Integer.toString(totalCalories));
                     foodListView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
                 }
             }
-        });*/
+        });
 
     }
 
@@ -90,11 +101,16 @@ public class FoodDiary extends AppCompatActivity {
         String submittedName = foodName.getText().toString();
         if(calories.getText().toString().isEmpty() == false) {
             submittedCalories = Integer.valueOf(calories.getText().toString());
-            if (submittedName != null) {
+            submittedName = submittedName.replaceAll("[^a-zA-Z0-9]", "");
+            if (!submittedName.isEmpty()) {
+
                 food = new Food(submittedName, submittedCalories);
+                foodList.add(food.getFood());
+                totalCalories += Integer.valueOf(submittedCalories);
+            } else {
+                Toast.makeText(this, "Please insert both food name and calories amount", Toast.LENGTH_SHORT).show();
             }
-            foodList.add(food.getFood());
-            totalCalories += Integer.valueOf(submittedCalories);
+
         } else {
             Toast.makeText(this, "Please insert both food name and calories amount", Toast.LENGTH_SHORT).show();
         }
