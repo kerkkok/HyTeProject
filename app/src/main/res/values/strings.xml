@@ -6,4 +6,11 @@
     <string name="yesterdays_calories">Yesterdays calories</string>
     <string name="ListRemovalText">Tap an item to remove it from the list</string>
     <string name="steps">0</string>
+    <string name="yourW">Your Weight</string>
+    <string name="yourH">Your Height</string>
+    <string name="kilo">Type here (kg)</string>
+    <string name="centim">Type here (cm)</string>
+    <string name="bmica">BMI Calculator</string>
+    <string name="calcu">Calculate</string>
+    <string name="yourbmi"></string>
 </resources>

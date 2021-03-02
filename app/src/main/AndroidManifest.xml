@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HyTeProject">
         <activity android:name=".FoodDiary" android:windowSoftInputMode="adjustPan"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".BmiC">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
