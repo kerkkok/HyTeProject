@@ -2,17 +2,24 @@ package com.example.hyteproject;
 
 import android.Manifest;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
     private TextView textViewStep;
@@ -43,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             textViewStep.setText("Counter not present");
             isCounterSensorPresent = false;
         }
+
+        setTime();
     }
 
     @Override
@@ -63,5 +72,27 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             sensorManager.registerListener(this, stepCounter, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
+
+    /**
+     * Sets a specific clock time for a reset.
+     */
+    public void setTime(){
+        Calendar c = Calendar.getInstance();
+        c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH),
+                10, 6, 0);
+        setReset(c.getTimeInMillis());
+        Log.d("DailyReset", "Timer applied");
+    }
+
+    /**
+     * Sets an alarm activity using the time from setTime
+     * @param time time for a reset
+     */
+    private void setReset(long time){
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, DailyReset.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,intent, 0);
+        alarmManager.setRepeating(AlarmManager.RTC, time, AlarmManager.INTERVAL_DAY, pendingIntent);
+    }
 
 }

@@ -59,7 +59,6 @@ public class FoodDiary extends AppCompatActivity {
 
         totalCalories = DataManager.readCaloriesInPref(this);
         textViewCalorieCounter.setText(Integer.toString(totalCalories));
-        setTime();
 
 
         foodListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -117,27 +116,6 @@ public class FoodDiary extends AppCompatActivity {
         final ArrayAdapter adapter = (new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, foodList));
         foodListView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-    }
-
-    /**
-    * Sets a specific clock time for a reset.
-    */
-    public void setTime(){
-        Calendar c = Calendar.getInstance();
-        c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH),
-                12, 56, 0);
-        setReset(c.getTimeInMillis());
-    }
-
-    /**
-     * Sets an alarm activity using the time from setTime
-     * @param time time for a reset
-     */
-    private void setReset(long time){
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this, DailyReset.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,intent, 0);
-        alarmManager.setRepeating(AlarmManager.RTC, time, AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
     protected void onPause() {
