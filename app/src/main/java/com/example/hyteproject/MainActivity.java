@@ -13,8 +13,11 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -28,6 +31,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private boolean isCounterSensorPresent;
     int stepCount = 0;
 
+    private EditText weightInput;
+    private EditText heightInput;
+    private TextView textViewCalculatedBMI;
+    float weight, height, bmi = 0;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +58,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             isCounterSensorPresent = false;
         }
 
+        weightInput = (EditText) findViewById(R.id.weightInput);
+        heightInput = (EditText) findViewById(R.id.heightInput);
+        textViewCalculatedBMI = (TextView)findViewById(R.id.textViewCalculatedBMI);
+
         setTime();
     }
 
@@ -66,12 +77,29 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
+
     protected void onResume() {
         super.onResume();
         if (sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)!=null)
             sensorManager.registerListener(this, stepCounter, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
+    public void calculateBMI (View view) {
+        if (!weightInput.getText().toString().isEmpty() || !heightInput.getText().toString().isEmpty()) {
+            weight = Float.valueOf(weightInput.getText().toString());
+            height = Float.valueOf(heightInput.getText().toString());
+            bmi = weight / ((height / 100) * (height / 100));
+            String bmin = String.valueOf(bmi);
+            textViewCalculatedBMI.setText("Your BMI is " + bmin);
+        } else {
+            Toast.makeText(this, "Please insert both weight and height", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void goToFoodDiary (View view) {
+        Intent nextActivity = new Intent(MainActivity.this, FoodDiary.class);
+        startActivity(nextActivity);
+    }
 
     /**
      * Sets a specific clock time for a reset.

@@ -13,4 +13,8 @@
     <string name="bmica">BMI Calculator</string>
     <string name="calcu">Calculate</string>
     <string name="yourbmi"></string>
+    <string name="textViewStepsText">Steps today</string>
+    <string name="settings_button">Settings button</string>
+    <string name="food_diary">Food diary</string>
+    <string name="go_to_food_diary">Go to food diary</string>
 </resources>
