@@ -15,6 +15,7 @@ public class DataManager {
     private static String dailyFoodsKey = "dailyFoodsKey";
     private static String yesterdaysCaloriesKey = "yesterdaysCaloriesKey";
     private static String stepCountKey = "stepCountKey";
+    private static String yesterdaysStepCountKey = "yesterdaysStepCountKey";
 
     /**
      * Writes the ArrayList information into the SharedPreferences using the help of gson.
@@ -106,6 +107,18 @@ public class DataManager {
         SharedPreferences sharedPref = context.getSharedPreferences("StepCount", Context.MODE_PRIVATE);
         int stepCount = sharedPref.getInt(stepCountKey, 0);
         return stepCount;
+    }
+
+    /**
+     * Gets totalCalories from SharedPreferences
+     * @param context
+     * @return yesterdaysCalories
+     */
+    public static int readYesterdaysStepCountInPref(Context context){
+
+        SharedPreferences sharedPref = context.getSharedPreferences("YesterdaysStepCounts", Context.MODE_PRIVATE);
+        int yesterdayCalories = sharedPref.getInt(yesterdaysStepCountKey, 0);
+        return yesterdayCalories;
     }
 
 
