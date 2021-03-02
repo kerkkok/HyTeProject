@@ -16,6 +16,7 @@ public class DataManager {
     private static String yesterdaysCaloriesKey = "yesterdaysCaloriesKey";
     private static String stepCountKey = "stepCountKey";
     private static String yesterdaysStepCountKey = "yesterdaysStepCountKey";
+    private static String bmiKey = "bmiKey";
 
     /**
      * Writes the ArrayList information into the SharedPreferences using the help of gson.
@@ -100,7 +101,7 @@ public class DataManager {
     /**
      * Gets stepCount in SharedPreferences
      * @param context
-     * @return Stepcount
+     * @return todays Step count
      */
     public static int readStepCountInPref(Context context){
 
@@ -110,9 +111,9 @@ public class DataManager {
     }
 
     /**
-     * Gets totalCalories from SharedPreferences
+     * Gets yesterdays stepcount from SharedPreferences
      * @param context
-     * @return yesterdaysCalories
+     * @return yesterdays stepcount
      */
     public static int readYesterdaysStepCountInPref(Context context){
 
@@ -120,6 +121,34 @@ public class DataManager {
         int yesterdayCalories = sharedPref.getInt(yesterdaysStepCountKey, 0);
         return yesterdayCalories;
     }
+
+    /**
+     * Gets stepCount in SharedPreferences
+     * @param context
+     * @return Stepcount
+     */
+    public static int readBMIInPref(Context context){
+
+        SharedPreferences sharedPref = context.getSharedPreferences("BMI", Context.MODE_PRIVATE);
+        int bmi = sharedPref.getInt(bmiKey, 0);
+        return bmi;
+    }
+
+    /**
+     * Writes BMI count in SharedPreferences
+     * @param context
+     * @param bmi users BMI
+     */
+    public static void writeBMIInPref(Context context, int bmi){
+
+        SharedPreferences sharedPref = context.getSharedPreferences("BMI", Context.MODE_PRIVATE);
+        SharedPreferences.Editor prefEditor = sharedPref.edit();
+        prefEditor.putInt(bmiKey, bmi);
+        prefEditor.commit();
+    }
+
+
+
 
 
 }
