@@ -8,12 +8,13 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FoodDataManager {
+public class DataManager {
 
 
     private static String totalCaloriesKey = "totalCaloriesKey";
     private static String dailyFoodsKey = "dailyFoodsKey";
     private static String yesterdaysCaloriesKey = "yesterdaysCaloriesKey";
+    private static String stepCountKey = "stepCountKey";
 
     /**
      * Writes the ArrayList information into the SharedPreferences using the help of gson.
@@ -80,6 +81,31 @@ public class FoodDataManager {
         SharedPreferences sharedPref = context.getSharedPreferences("YesterdaysCalorieInformation", Context.MODE_PRIVATE);
         int calories = sharedPref.getInt(yesterdaysCaloriesKey, 0);
         return calories;
+    }
+
+    /**
+     * Writes stepCounts in SharedPreferences
+     * @param context
+     * @param stepCount yesterdaysCalories
+     */
+    public static void writeStepCountInPref(Context context, int stepCount){
+
+        SharedPreferences sharedPref = context.getSharedPreferences("StepCount", Context.MODE_PRIVATE);
+        SharedPreferences.Editor prefEditor = sharedPref.edit();
+        prefEditor.putInt(stepCountKey, stepCount);
+        prefEditor.commit();
+    }
+
+    /**
+     * Gets stepCount in SharedPreferences
+     * @param context
+     * @return Stepcount
+     */
+    public static int readStepCountInPref(Context context){
+
+        SharedPreferences sharedPref = context.getSharedPreferences("StepCount", Context.MODE_PRIVATE);
+        int stepCount = sharedPref.getInt(stepCountKey, 0);
+        return stepCount;
     }
 
 

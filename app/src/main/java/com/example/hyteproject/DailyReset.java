@@ -25,7 +25,7 @@ public class DailyReset extends BroadcastReceiver {
         yesterdaysCaloriesPref.edit().clear().commit();
 
         SharedPreferences sharedPref = context.getSharedPreferences("TotalCaloriesInformation", Context.MODE_PRIVATE);
-        yesterdaysCalories = FoodDataManager.readCaloriesInPref(context);
+        yesterdaysCalories = DataManager.readCaloriesInPref(context);
         sharedPref.edit().clear().commit();
 
         SharedPreferences.Editor prefEditor = yesterdaysCaloriesPref.edit();

@@ -47,17 +47,17 @@ public class FoodDiary extends AppCompatActivity {
         textViewYesterdaysCalories = findViewById(R.id.textViewYesterdaysCalories);
         textViewCalorieCounter = findViewById(R.id.textViewTotalCalories);
 
-        foodList = FoodDataManager.readArrayFromPref(this);
+        foodList = DataManager.readArrayFromPref(this);
                 if (foodList == null) {
                 foodList = new ArrayList<>(); }
         final ArrayAdapter adapter = (new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, foodList));
         foodListView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
-        yesterdaysCalories = FoodDataManager.readYesterdaysCaloriesInPref(this);
+        yesterdaysCalories = DataManager.readYesterdaysCaloriesInPref(this);
         textViewYesterdaysCalories.setText(Integer.toString(yesterdaysCalories));
 
-        totalCalories = FoodDataManager.readCaloriesInPref(this);
+        totalCalories = DataManager.readCaloriesInPref(this);
         textViewCalorieCounter.setText(Integer.toString(totalCalories));
         setTime();
 
@@ -77,7 +77,7 @@ public class FoodDiary extends AppCompatActivity {
 
                     SharedPreferences sharedPref = getSharedPreferences("TotalCaloriesInformation", Context.MODE_PRIVATE);
                     sharedPref.edit().clear().commit();
-                    FoodDataManager.writeArrayInPref(getApplicationContext(), foodList);
+                    DataManager.writeArrayInPref(getApplicationContext(), foodList);
 
                     textViewCalorieCounter.setText(Integer.toString(totalCalories));
                     foodListView.setAdapter(adapter);
@@ -142,7 +142,7 @@ public class FoodDiary extends AppCompatActivity {
 
     protected void onPause() {
         super.onPause();
-        FoodDataManager.writeCaloriesInPref(getApplicationContext(), totalCalories);
-        FoodDataManager.writeArrayInPref(getApplicationContext(), foodList);
+        DataManager.writeCaloriesInPref(getApplicationContext(), totalCalories);
+        DataManager.writeArrayInPref(getApplicationContext(), foodList);
     }
 }
