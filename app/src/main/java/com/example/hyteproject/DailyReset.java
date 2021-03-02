@@ -35,7 +35,7 @@ public class DailyReset extends BroadcastReceiver {
         totalCaloriesInformationSharedPref.edit().clear().commit();
 
         SharedPreferences stepCountSharedPref = context.getSharedPreferences("StepCount", Context.MODE_PRIVATE);
-        yesterdaysStepCount = DataManager.readCaloriesInPref(context);
+        yesterdaysStepCount = DataManager.readStepCountInPref(context);
         stepCountSharedPref.edit().clear().commit();
 
         SharedPreferences.Editor YesterdayCaloriesPrefEditor = yesterdaysCaloriesPref.edit();
