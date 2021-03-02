@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">HyTeProject</string>
+    <string name="submit">Submit</string>
+    <string name="amount_of_calories">Amount of calories</string>
+    <string name="food_name">Food name</string>
+    <string name="yesterdays_calories">Yesterdays calories</string>
+    <string name="ListRemovalText">Tap an item to remove it from the list</string>
+    <string name="steps">0</string>
 </resources>
