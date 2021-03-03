@@ -19,10 +19,12 @@
     <string name="go_to_food_diary">Go to food diary</string>
     <string name="step_target">Step target</string>
     <string name="step_counter">Step counter</string>
-    <string name="calorie_target">Calorie traget</string>
+    <string name="calorie_target">Calorie target</string>
     <string name="theme">Theme</string>
     <string name="theme1">Theme1</string>
     <string name="theme2">Theme2</string>
     <string name="theme3">Theme3</string>
     <string name="back_to_menu">Back to menu</string>
+    <string name="metric">Metric</string>
+    <string name="imperial">Imperial</string>
 </resources>

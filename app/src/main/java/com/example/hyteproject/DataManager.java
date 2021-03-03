@@ -20,7 +20,7 @@ public class DataManager {
     private static String yesterdaysCaloriesKey = "yesterdaysCaloriesKey";
     private static String stepCountKey = "stepCountKey";
     private static String yesterdaysStepCountKey = "yesterdaysStepCountKey";
-    private static String bmiKey = "bmiKey";
+    private static String bmiSettingsKey = "bmiSettingsKey";
 
     /**
      * Writes the ArrayList information into the SharedPreferences using the help of json.
@@ -120,24 +120,24 @@ public class DataManager {
 
     /**
      * Gets users bmi from SharedPreferences
-     * @return int bmi users BMI
+     * @return int selectedUnits users BMI
      */
-    public static int readBMIInPref(Context context){
+    public static int readBMISettingInPref(Context context){
 
-        SharedPreferences sharedPref = context.getSharedPreferences("BMI", Context.MODE_PRIVATE);
-        int bmi = sharedPref.getInt(bmiKey, 0);
-        return bmi;
+        SharedPreferences sharedPref = context.getSharedPreferences("BMISettings", Context.MODE_PRIVATE);
+        int selectedUnits = sharedPref.getInt(bmiSettingsKey, 0);
+        return selectedUnits;
     }
 
     /**
      * Writes BMI count in SharedPreferences
-     * @param bmi will be written in BMI SharedPreferences.
+     * @param selectedUnits will be written in BMI SharedPreferences.
      */
-    public static void writeBMIInPref(Context context, int bmi){
+    public static void writeBMISettingInPref(Context context, int selectedUnits){
 
-        SharedPreferences sharedPref = context.getSharedPreferences("BMI", Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = context.getSharedPreferences("BMISettings", Context.MODE_PRIVATE);
         SharedPreferences.Editor prefEditor = sharedPref.edit();
-        prefEditor.putInt(bmiKey, bmi);
+        prefEditor.putInt(bmiSettingsKey, selectedUnits);
         prefEditor.commit();
     }
 

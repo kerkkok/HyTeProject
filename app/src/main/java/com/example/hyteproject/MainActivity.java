@@ -29,12 +29,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private SensorManager sensorManager;
     private Sensor stepCounter;
     private boolean isCounterSensorPresent;
-    int stepCount = 0;
+    private int stepCount = 0;
 
     private EditText weightInput;
     private EditText heightInput;
     private TextView textViewCalculatedBMI;
-    float weight, height, bmi = 0;
+    private float weight, height, bmi = 0;
+    private int units = 0;
+    private boolean metric = true;
+    private boolean imperial = false;
+    private String bmiWeightHintString;
+    private String bmiHeightHintString;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +66,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         weightInput = (EditText) findViewById(R.id.weightInput);
         heightInput = (EditText) findViewById(R.id.heightInput);
         textViewCalculatedBMI = (TextView)findViewById(R.id.textViewCalculatedBMI);
+        units = DataManager.readBMISettingInPref(this);
+        bmiWeightHintString = getString(R.string.weight_input);
+        bmiHeightHintString = getString(R.string.height_input);
+
 
         setTime();
     }
@@ -80,15 +89,41 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     protected void onResume() {
         super.onResume();
-        if (sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)!=null)
+        if (sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)!=null) {
             sensorManager.registerListener(this, stepCounter, SensorManager.SENSOR_DELAY_NORMAL);
+        }
+        units = DataManager.readBMISettingInPref(this);
+        if (units == 0) {
+             metric = true;
+             imperial = false;
+             weightInput.setHint("Type here (kg)");
+            heightInput.setHint("Type here (cm)");
+        } else if (units == 1) {
+            metric = false;
+            imperial = true;
+            weightInput.setHint("Type here (lbs)");
+            heightInput.setHint("Type here (feet)");
+        } else {
+            Log.e("BMIUnitsError", "Failed to retrieve BMI units from pref");
+        }
     }
 
     public void calculateBMI (View view) {
         if (!weightInput.getText().toString().isEmpty() || !heightInput.getText().toString().isEmpty()) {
-            weight = Float.valueOf(weightInput.getText().toString());
-            height = Float.valueOf(heightInput.getText().toString());
-            bmi = weight / ((height / 100) * (height / 100));
+            if (metric) {
+                weight = Float.valueOf(weightInput.getText().toString());
+                height = Float.valueOf(heightInput.getText().toString());
+                bmi = weight / ((height / 100) * (height / 100));
+            } else if (imperial) {
+                weight = Float.valueOf(weightInput.getText().toString());
+                height = Float.valueOf(heightInput.getText().toString());
+                weight *= 0.45359237;
+                height *= 30.48;
+                bmi = weight / ((height / 100) * (height / 100));
+            } else {
+                Log.e("BMIConversionError", "Failed to determine unit type");
+            }
+
             String bmin = String.valueOf(bmi);
             textViewCalculatedBMI.setText("Your BMI is " + bmin);
         } else {
