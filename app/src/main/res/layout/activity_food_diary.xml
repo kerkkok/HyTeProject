@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".FoodDiary">
 
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="#00000000"
+        android:contentDescription="@string/back_to_menu"
+        android:scaleType="fitXY"
+        android:src="@drawable/backarrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textViewTotalCalories"
         android:layout_width="wrap_content"
@@ -60,7 +71,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:backgroundTint="#8BC34A"
+        android:backgroundTint="#14B381"
         android:onClick="submitFood"
         android:text="@string/submit"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
@@ -125,7 +136,7 @@
         android:id="@+id/textViewTapToEmpty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/ListRemovalText"
+        android:text="@string/listRemovalText"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

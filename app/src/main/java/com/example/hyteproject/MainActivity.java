@@ -101,6 +101,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         startActivity(nextActivity);
     }
 
+    public void goToSettings (View view) {
+        Intent nextActivity = new Intent(MainActivity.this, Settings.class);
+        startActivity(nextActivity);
+    }
+
     /**
      * Sets a specific clock time for a reset.
      */
