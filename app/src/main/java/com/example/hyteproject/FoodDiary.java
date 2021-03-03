@@ -125,18 +125,4 @@ public class FoodDiary extends AppCompatActivity {
         DataManager.writeCaloriesInPref(getApplicationContext(), totalCalories);
         DataManager.writeArrayInPref(getApplicationContext(), foodList);
     }
-
-    protected void onResume(){
-        super.onResume();
-        /* Refresh the list on resume */
-        foodList = DataManager.readArrayFromPref(this);
-        if (foodList == null) {
-            foodList = new ArrayList<Food>(); }
-        final ArrayAdapter adapter = (new ArrayAdapter<Food>(this, android.R.layout.simple_list_item_1, foodList));
-        foodListView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-
-    }
-
-
 }
