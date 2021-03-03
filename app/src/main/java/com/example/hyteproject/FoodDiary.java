@@ -32,9 +32,11 @@ public class FoodDiary extends AppCompatActivity {
     private ArrayList<Food> foodList;
     private TextView textViewYesterdaysCalories;
     private TextView textViewCalorieCounter;
+    private TextView textViewTotalCalorieTarget;
     private int submittedCalories = 0;
     private int yesterdaysCalories = 0;
     private int totalCalories = 0;
+    private String targetCalories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class FoodDiary extends AppCompatActivity {
         calories = findViewById(R.id.editTextNumberCaloriesAmount);
         textViewYesterdaysCalories = findViewById(R.id.textViewYesterdaysCalories);
         textViewCalorieCounter = findViewById(R.id.textViewTotalCalories);
+        textViewTotalCalorieTarget = findViewById(R.id.textViewTotalCalorieTarget);
 
         /* Reads ArrayList from SharedPreferences, if ArrayList doesn't exist, creates one. */
         foodList = DataManager.readArrayFromPref(this);
@@ -118,6 +121,12 @@ public class FoodDiary extends AppCompatActivity {
     public void goToMenu (View view) {
         Intent nextActivity = new Intent(FoodDiary.this, MainActivity.class);
         startActivity(nextActivity);
+    }
+
+    protected void onResume() {
+        super.onResume();
+        targetCalories = DataManager.readTargetCaloriesInPref(this);
+        textViewTotalCalorieTarget.setText(targetCalories);
     }
 
     protected void onPause() {

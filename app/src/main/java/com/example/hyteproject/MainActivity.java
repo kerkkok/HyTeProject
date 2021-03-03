@@ -108,6 +108,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
+    /**
+     * Calculates BMI using mathematical formulas. Method checks that user input is not empty.
+     * Method checks settings regarding users preferred unit types and does the calculation accordingly.
+     */
     public void calculateBMI (View view) {
         if (!weightInput.getText().toString().isEmpty() || !heightInput.getText().toString().isEmpty()) {
             if (metric) {
@@ -131,11 +135,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
+    /**
+     * @param view switches activity to FoodDiary
+     */
     public void goToFoodDiary (View view) {
         Intent nextActivity = new Intent(MainActivity.this, FoodDiary.class);
         startActivity(nextActivity);
     }
 
+    /**
+     * @param view switches activity to Settings
+     */
     public void goToSettings (View view) {
         Intent nextActivity = new Intent(MainActivity.this, Settings.class);
         startActivity(nextActivity);

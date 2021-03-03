@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * This class have methods that will write and read information from SharedPreferences
- * @author Mortti Malin
+ * @author Mortti Malin, Kerkko Kyyrö
  */
 public class DataManager {
 
@@ -20,6 +20,8 @@ public class DataManager {
     private static String yesterdaysCaloriesKey = "yesterdaysCaloriesKey";
     private static String stepCountKey = "stepCountKey";
     private static String yesterdaysStepCountKey = "yesterdaysStepCountKey";
+    private static String targetStepsKey = "targetStepsKey";
+    private static String targetCaloriesKey = "targetCaloriesKey";
     private static String bmiSettingsKey = "bmiSettingsKey";
 
     /**
@@ -119,8 +121,50 @@ public class DataManager {
     }
 
     /**
-     * Gets users bmi from SharedPreferences
-     * @return int selectedUnits users BMI
+     * Writes targetSteps String in SharedPreferences
+     * @param targetSteps will be written in TargetSteps SharedPreferences.
+     */
+    public static void writeTargetStepsInPref(Context context, String targetSteps) {
+        SharedPreferences sharedPref = context.getSharedPreferences("TargetSteps", Context.MODE_PRIVATE);
+        SharedPreferences.Editor prefEditor = sharedPref.edit();
+        prefEditor.putString(targetStepsKey, targetSteps);
+        prefEditor.commit();
+    }
+
+    /**
+     * Gets users targetSteps from SharedPreferences
+     * @return String targetSteps
+     */
+    public static String readTargetStepsInPref(Context context) {
+        SharedPreferences sharedPref = context.getSharedPreferences("TargetSteps", Context.MODE_PRIVATE);
+        String targetSteps = sharedPref.getString(targetStepsKey, "");
+        return targetSteps;
+    }
+
+    /**
+     * Writes targetCalories String in SharedPreferences
+     * @param targetCalories will be written in targetCalories SharedPreferences.
+     */
+    public static void writeTargetCaloriesInPref(Context context, String targetCalories) {
+        SharedPreferences sharedPref = context.getSharedPreferences("TargetCalories", Context.MODE_PRIVATE);
+        SharedPreferences.Editor prefEditor = sharedPref.edit();
+        prefEditor.putString(targetCaloriesKey, targetCalories);
+        prefEditor.commit();
+    }
+
+    /**
+     * Gets users targetCalories from SharedPreferences
+     * @return String targetCalories
+     */
+    public static String readTargetCaloriesInPref(Context context) {
+        SharedPreferences sharedPref = context.getSharedPreferences("TargetCalories", Context.MODE_PRIVATE);
+        String targetCalories = sharedPref.getString(targetCaloriesKey, "");
+        return targetCalories;
+    }
+
+    /**
+     * Gets users selectedUnits from SharedPreferences
+     * @return int selectedUnits selection reference number
      */
     public static int readBMISettingInPref(Context context){
 
@@ -130,8 +174,8 @@ public class DataManager {
     }
 
     /**
-     * Writes BMI count in SharedPreferences
-     * @param selectedUnits will be written in BMI SharedPreferences.
+     * Writes selectedUnits reference number in SharedPreferences
+     * @param selectedUnits will be written in BMISettings SharedPreferences.
      */
     public static void writeBMISettingInPref(Context context, int selectedUnits){
 

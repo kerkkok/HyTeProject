@@ -4,11 +4,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RadioGroup;
 
+/**
+ * Settings for the application. User can tweak the app according to their personal targets and preferences.
+ * @author Kyyrö Kerkko
+ */
+
 public class Settings extends AppCompatActivity {
+
+    private EditText editTextCalorieTarget;
 
     private RadioGroup radioGroupBMI;
     private int selectedButton = 0;
@@ -19,8 +26,12 @@ public class Settings extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         radioGroupBMI = findViewById(R.id.radioGroupBMI);
+        editTextCalorieTarget = findViewById(R.id.editTextCalorieTarget);
     }
 
+    /**
+     * @param view switches activity to MainActivity
+     */
     public void goToMenu (View view) {
         Intent nextActivity = new Intent(Settings.this, MainActivity.class);
         startActivity(nextActivity);
@@ -28,6 +39,9 @@ public class Settings extends AppCompatActivity {
 
     protected void onResume() {
         super.onResume();
+        String tC = DataManager.readTargetCaloriesInPref(this);
+        editTextCalorieTarget.setText(tC);
+
         int i = DataManager.readBMISettingInPref(this);
         if (i == 0) {
             radioGroupBMI.check(R.id.radioButtonMetric);
@@ -38,10 +52,16 @@ public class Settings extends AppCompatActivity {
 
     protected void onPause() {
         super.onPause();
-        updateBMI();
+        saveSettings();
     }
 
-    public void updateBMI () {
+    /**
+     * Calls methods to save user settings.
+     */
+    public void saveSettings () {
+        String targetCalories = editTextCalorieTarget.getText().toString();
+        DataManager.writeTargetCaloriesInPref(getApplicationContext(), targetCalories);
+
         selectedButton = radioGroupBMI.getCheckedRadioButtonId();
         switch (selectedButton) {
             case R.id.radioButtonMetric:
