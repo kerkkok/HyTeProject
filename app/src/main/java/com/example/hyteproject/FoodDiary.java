@@ -30,7 +30,7 @@ public class FoodDiary extends AppCompatActivity {
     private EditText calories;
     private EditText foodName;
     private Food food;
-    private ArrayList<String> foodList;
+    private ArrayList<Food> foodList;
     private TextView textViewYesterdaysCalories;
     private TextView textViewCalorieCounter;
     private int submittedCalories = 0;
@@ -49,8 +49,8 @@ public class FoodDiary extends AppCompatActivity {
 
         foodList = DataManager.readArrayFromPref(this);
                 if (foodList == null) {
-                foodList = new ArrayList<>(); }
-        final ArrayAdapter adapter = (new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, foodList));
+                foodList = new ArrayList<Food>(); }
+        final ArrayAdapter adapter = (new ArrayAdapter<Food>(this, android.R.layout.simple_list_item_1, foodList));
         foodListView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
@@ -65,19 +65,13 @@ public class FoodDiary extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if(foodList.size() >= 0) {
-                    String splitString = foodList.get(i);
 
-                    String[] split = splitString.split(", |\\ C");
-                    String splitResult = split[1];
-                    Log.d("Pepe", splitResult);
-                    totalCalories -= Integer.parseInt(splitResult);
-
+                    totalCalories -= foodList.get(i).getCalories();
+                    Toast.makeText(FoodDiary.this, "Deleted " + foodList.get(i).getName() + " from the list." , Toast.LENGTH_SHORT).show();
                     foodList.remove(i);
-
                     SharedPreferences sharedPref = getSharedPreferences("TotalCaloriesInformation", Context.MODE_PRIVATE);
                     sharedPref.edit().clear().commit();
                     DataManager.writeArrayInPref(getApplicationContext(), foodList);
-
                     textViewCalorieCounter.setText(Integer.toString(totalCalories));
                     foodListView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
@@ -100,7 +94,7 @@ public class FoodDiary extends AppCompatActivity {
             submittedName = submittedName.replaceAll("[^a-zA-Z0-9]", "");
             if (!submittedName.isEmpty()) {
                 food = new Food(submittedName, submittedCalories);
-                foodList.add(food.getFood());
+                foodList.add(new Food(submittedName, submittedCalories));
                 totalCalories += Integer.valueOf(submittedCalories);
                 calories.getText().clear();
                 foodName.getText().clear();

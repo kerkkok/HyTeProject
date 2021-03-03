@@ -23,7 +23,7 @@ public class DataManager {
      * @param context
      * @param list food ArrayList from FoodDiary
      */
-    public static void writeArrayInPref(Context context, List<String> list){
+    public static void writeArrayInPref(Context context, List<Food> list){
 
         Gson gson = new Gson();
         String json = gson.toJson(list);
@@ -38,13 +38,13 @@ public class DataManager {
      * @param context
      * @return ArrayList with food information
      */
-    public static ArrayList<String> readArrayFromPref(Context context){
+    public static ArrayList<Food> readArrayFromPref(Context context){
 
         SharedPreferences sharedPref = context.getSharedPreferences("TotalCaloriesInformation", Context.MODE_PRIVATE);
         String json = sharedPref.getString("dailyFoodsKey", "");
         Gson gson = new Gson();
-        Type type = new TypeToken<ArrayList<String>>() {}.getType();
-        ArrayList<String> list = gson.fromJson(json, type);
+        Type type = new TypeToken<ArrayList<Food>>() {}.getType();
+        ArrayList<Food> list = gson.fromJson(json, type);
         return list;
     }
 

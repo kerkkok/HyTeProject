@@ -25,9 +25,26 @@ public class Food {
 
     /**
      *
-     * @return returns the name and calorie amount of the meal
+     * @return returns calories
      */
-    public String getFood(){
+    public int getCalories(){
+        return this.calories;
+    }
+
+    /**
+     *
+     * @return returns calories
+     */
+    public String getName(){
+        return this.name;
+    }
+
+    /**
+     *
+     * @return returns complete information about the meal
+     */
+    @Override
+    public String toString(){
         return this.name + ", " + Integer.toString(this.calories) + " Calories.";
     }
 }
