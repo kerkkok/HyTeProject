@@ -8,6 +8,10 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class have methods that will write and read information from SharedPreferences
+ * @author Mortti Malin
+ */
 public class DataManager {
 
 
@@ -19,9 +23,8 @@ public class DataManager {
     private static String bmiKey = "bmiKey";
 
     /**
-     * Writes the ArrayList information into the SharedPreferences using the help of gson.
-     * @param context
-     * @param list food ArrayList from FoodDiary
+     * Writes the ArrayList information into the SharedPreferences using the help of json.
+     * @param list food ArrayList from FoodDiary.
      */
     public static void writeArrayInPref(Context context, List<Food> list){
 
@@ -34,9 +37,8 @@ public class DataManager {
     }
 
     /**
-     * Gets gson from SharedPreferences and turns it back into ArrayList
-     * @param context
-     * @return ArrayList with food information
+     * Gets json string from SharedPreferences and turns it back into ArrayList<Food>.
+     * @return ArrayList<Food>.
      */
     public static ArrayList<Food> readArrayFromPref(Context context){
 
@@ -49,9 +51,8 @@ public class DataManager {
     }
 
     /**
-     * Writes totalCalories in SharedPreferences
-     * @param context
-     * @param calories totalCalories from FoodDiary
+     * Writes totalCalories in SharedPreferences.
+     * @param calories the daily int totalCalories from FoodDiary.
      */
     public static void writeCaloriesInPref(Context context, int calories){
 
@@ -62,9 +63,8 @@ public class DataManager {
     }
 
     /**
-     * Gets totalCalories from SharedPreferences
-     * @param context
-     * @return totalCalories
+     * Gets totalCalories from SharedPreferences.
+     * @return int totalCalories from SharedPreferences.
      */
     public static int readCaloriesInPref(Context context){
 
@@ -74,9 +74,8 @@ public class DataManager {
     }
 
     /**
-     * Gets totalCalories from SharedPreferences
-     * @param context
-     * @return yesterdaysCalories
+     * Gets totalCalories from SharedPreferences.
+     * @return yesterdaysCalories from SharedPreferences.
      */
     public static int readYesterdaysCaloriesInPref(Context context){
 
@@ -86,9 +85,8 @@ public class DataManager {
     }
 
     /**
-     * Writes stepCounts in SharedPreferences
-     * @param context
-     * @param stepCount yesterdaysCalories
+     * Writes today's stepCounts in SharedPreferences
+     * @param stepCount will be written in StepCount SharedPreferences.
      */
     public static void writeStepCountInPref(Context context, int stepCount){
 
@@ -99,9 +97,8 @@ public class DataManager {
     }
 
     /**
-     * Gets stepCount in SharedPreferences
-     * @param context
-     * @return todays Step count
+     * Gets stepCount from SharedPreferences.
+     * @return int stepCount from SharedPreferences.
      */
     public static int readStepCountInPref(Context context){
 
@@ -111,21 +108,19 @@ public class DataManager {
     }
 
     /**
-     * Gets yesterdays stepcount from SharedPreferences
-     * @param context
-     * @return yesterdays stepcount
+     * Gets yesterdays stepCount from SharedPreferences.
+     * @return yesterdays int stepCount
      */
     public static int readYesterdaysStepCountInPref(Context context){
 
         SharedPreferences sharedPref = context.getSharedPreferences("YesterdaysStepCounts", Context.MODE_PRIVATE);
-        int yesterdayCalories = sharedPref.getInt(yesterdaysStepCountKey, 0);
-        return yesterdayCalories;
+        int yesterdayStepCount = sharedPref.getInt(yesterdaysStepCountKey, 0);
+        return yesterdayStepCount;
     }
 
     /**
-     * Gets stepCount in SharedPreferences
-     * @param context
-     * @return Stepcount
+     * Gets users bmi from SharedPreferences
+     * @return int bmi users BMI
      */
     public static int readBMIInPref(Context context){
 
@@ -136,8 +131,7 @@ public class DataManager {
 
     /**
      * Writes BMI count in SharedPreferences
-     * @param context
-     * @param bmi users BMI
+     * @param bmi will be written in BMI SharedPreferences.
      */
     public static void writeBMIInPref(Context context, int bmi){
 

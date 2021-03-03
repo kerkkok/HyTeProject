@@ -22,7 +22,6 @@ import java.util.ArrayList;
 /**
  * FoodDiary for the application. User can keep track of his daily total calories by inputting them to the application.
  * @author Malin Mortti, Kyyrö Kerkko
- * @version 1.0
  */
 public class FoodDiary extends AppCompatActivity {
 
@@ -47,9 +46,10 @@ public class FoodDiary extends AppCompatActivity {
         textViewYesterdaysCalories = findViewById(R.id.textViewYesterdaysCalories);
         textViewCalorieCounter = findViewById(R.id.textViewTotalCalories);
 
+        /* Reads ArrayList from SharedPreferences, if ArrayList doesn't exist, creates one. */
         foodList = DataManager.readArrayFromPref(this);
-                if (foodList == null) {
-                foodList = new ArrayList<Food>(); }
+        if (foodList == null) {
+            foodList = new ArrayList<Food>(); }
         final ArrayAdapter adapter = (new ArrayAdapter<Food>(this, android.R.layout.simple_list_item_1, foodList));
         foodListView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -60,7 +60,7 @@ public class FoodDiary extends AppCompatActivity {
         totalCalories = DataManager.readCaloriesInPref(this);
         textViewCalorieCounter.setText(Integer.toString(totalCalories));
 
-
+        /* Removes clicked food from the list and takes it away from the totalCalories count. */
         foodListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -79,13 +79,13 @@ public class FoodDiary extends AppCompatActivity {
             }
         });
 
+        /* recreate() */
+
+
     }
-
-
     /**
      * Submits the user input for food name and calorie amount to a list and shows it to the user
-     * adds calories to a total calorie count
-     *
+     * adds calories to a total calorie count and displays it to the user
      */
     public void submitFood(View view){
         String submittedName = foodName.getText().toString();
@@ -112,9 +112,31 @@ public class FoodDiary extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
+    /**
+     * Loads MainActivity on click.
+     */
+    public void goToMenu (View view) {
+        Intent nextActivity = new Intent(FoodDiary.this, MainActivity.class);
+        startActivity(nextActivity);
+    }
+
     protected void onPause() {
         super.onPause();
         DataManager.writeCaloriesInPref(getApplicationContext(), totalCalories);
         DataManager.writeArrayInPref(getApplicationContext(), foodList);
     }
+
+    protected void onResume(){
+        super.onResume();
+        /* Refresh the list on resume */
+        foodList = DataManager.readArrayFromPref(this);
+        if (foodList == null) {
+            foodList = new ArrayList<Food>(); }
+        final ArrayAdapter adapter = (new ArrayAdapter<Food>(this, android.R.layout.simple_list_item_1, foodList));
+        foodListView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+    }
+
+
 }

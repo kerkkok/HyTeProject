@@ -5,8 +5,6 @@ import android.util.Log;
 /**
  * Food class for the food diary
  * @author Malin Mortti, Kyyrö Kerkko
- * @version 1.0
- *
  */
 public class Food {
 
@@ -14,9 +12,9 @@ public class Food {
     private int calories;
 
     /**
-     * Takes the meals name and calorie amount
-     * @param name name of the meal
-     * @param calories calories amount of the meal
+     * Takes the meals name and calorie amount.
+     * @param name String name of the meal.
+     * @param calories int calories amount of the meal.
      */
     public Food (String name, int calories){
         this.name = name;
@@ -24,24 +22,24 @@ public class Food {
     }
 
     /**
-     *
-     * @return returns calories
+     * Returns calories amount.
+     * @return int calories of the food.
      */
     public int getCalories(){
         return this.calories;
     }
 
     /**
-     *
-     * @return returns calories
+     * Returns foods name.
+     * @return String name of the .
      */
     public String getName(){
         return this.name;
     }
 
     /**
-     *
-     * @return returns complete information about the meal
+     * Puts name and calories together to show them in ListView.
+     * @return returns complete information about the meal.
      */
     @Override
     public String toString(){

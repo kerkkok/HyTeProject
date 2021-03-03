@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void setTime(){
         Calendar c = Calendar.getInstance();
         c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH),
-                10, 6, 0);
+                12, 45, 20);
         setReset(c.getTimeInMillis());
         Log.d("DailyReset", "Timer applied");
     }
@@ -127,5 +127,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,intent, 0);
         alarmManager.setRepeating(AlarmManager.RTC, time, AlarmManager.INTERVAL_DAY, pendingIntent);
     }
+
 
 }

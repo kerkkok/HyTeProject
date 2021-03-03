@@ -12,6 +12,7 @@
         android:layout_height="50dp"
         android:background="#00000000"
         android:contentDescription="@string/back_to_menu"
+        android:onClick="goToMenu"
         android:scaleType="fitXY"
         android:src="@drawable/backarrow"
         app:layout_constraintStart_toStartOf="parent"
