@@ -54,10 +54,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         textViewStep = findViewById(R.id.stepText);
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-
+        stepCount = DataManager.readStepCountInPref(this);
+        textViewStep.setText(String.valueOf(stepCount));
         if (sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)!=null){
             stepCounter = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
             isCounterSensorPresent = true;
+
         }else {
             textViewStep.setText("Counter not present");
             isCounterSensorPresent = false;
@@ -74,12 +76,33 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setTime();
     }
 
+    int setoinen;
+    int sekolmas;
+
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         if (sensorEvent.sensor == stepCounter){
-            stepCount = (int) sensorEvent.values[0];
+            DataManager.writeStepCountInPref(this,(int) sensorEvent.values[0]);
+
+
+
+            stepCount = (int) sensorEvent.values[0] -setoinen;
+            sekolmas = (int) sensorEvent.values[0];
+
+
+
             textViewStep.setText(String.valueOf(stepCount));
         }
+    }
+
+    public void doReset(View view){
+        setoinen = sekolmas;
+        stepCount = 0;
+        textViewStep.setText(String.valueOf(stepCount));
+
+
+
+
     }
 
     @Override
@@ -107,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             Log.e("BMIUnitsError", "Failed to retrieve BMI units from pref");
         }
     }
+
 
     /**
      * Calculates BMI using mathematical formulas. Method checks that user input is not empty.
