@@ -13,7 +13,7 @@
     <string name="bmi_calculator">BMI Calculator</string>
     <string name="calculate">Calculate</string>
     <string name="calculatedBmi"></string>
-    <string name="textViewStepsText">Steps today</string>
+    <string name="textViewStepsText">Steps</string>
     <string name="settings_button">Settings button</string>
     <string name="food_diary">Food diary</string>
     <string name="go_to_food_diary">Go to food diary</string>

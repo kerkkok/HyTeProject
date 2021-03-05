@@ -1,7 +1,5 @@
 package com.example.hyteproject;
 
-import android.util.Log;
-
 /**
  * Food class for the food diary
  * @author Malin Mortti, Kyyrö Kerkko
