@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private Sensor stepCounter;
     private boolean isCounterSensorPresent;
     private int stepCount = 0;
+    private int stepCountCompensator = 0;
+    private int stepReset = 0;
 
     private EditText weightInput;
     private EditText heightInput;
@@ -41,20 +43,21 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private String bmiWeightHintString;
     private String bmiHeightHintString;
 
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_DENIED){
-            //ask for permission
+            //ask for permission to use
             requestPermissions(new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, 0);
         }
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         textViewStep = findViewById(R.id.stepText);
 
+        stepCountCompensator = DataManager.readStepCountInPref(this);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        stepCount = DataManager.readStepCountInPref(this);
         textViewStep.setText(String.valueOf(stepCount));
         if (sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)!=null){
             stepCounter = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
@@ -76,34 +79,32 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setTime();
     }
 
-    int setoinen;
-    int sekolmas;
 
+
+    /**
+     * Calculates the steps taken by the user since last reset.
+     * Method checks if androids total steps are below the compensator value and resets if needed.
+     */
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-        if (sensorEvent.sensor == stepCounter){
-            DataManager.writeStepCountInPref(this,(int) sensorEvent.values[0]);
-
-
-
-            stepCount = (int) sensorEvent.values[0] -setoinen;
-            sekolmas = (int) sensorEvent.values[0];
-
-
-
+        if (sensorEvent.sensor == stepCounter) {
+            stepReset = (int) sensorEvent.values[0];
+            if(stepReset < stepCountCompensator){
+                doStepReset();
+            }
+            stepCount = (int) sensorEvent.values[0] - stepCountCompensator;
             textViewStep.setText(String.valueOf(stepCount));
         }
     }
-
-    public void doReset(View view){
-        setoinen = sekolmas;
-        stepCount = 0;
-        textViewStep.setText(String.valueOf(stepCount));
-
-
-
-
+    public void resetStepsButton(View view){
+        doStepReset();
     }
+    public void doStepReset(){
+        DataManager.writeStepCountInPref(this, stepReset);
+        stepCountCompensator = stepReset;
+        textViewStep.setText(String.valueOf(0));
+    }
+
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {

@@ -72,9 +72,9 @@
 
                     <Button
                         android:id="@+id/resButt"
-                        android:onClick="doReset"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:onClick="resetStepsButton"
                         android:text="@string/reset_button" />
 
                 </LinearLayout>

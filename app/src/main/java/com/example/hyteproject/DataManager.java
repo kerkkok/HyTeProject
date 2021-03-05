@@ -19,6 +19,7 @@ public class DataManager {
     private static String dailyFoodsKey = "dailyFoodsKey";
     private static String yesterdaysCaloriesKey = "yesterdaysCaloriesKey";
     private static String stepCountKey = "stepCountKey";
+    private static String stepCompensatorKey = "stepCompensatorKey";
     private static String yesterdaysStepCountKey = "yesterdaysStepCountKey";
     private static String targetStepsKey = "targetStepsKey";
     private static String targetCaloriesKey = "targetCaloriesKey";
@@ -109,15 +110,23 @@ public class DataManager {
         return stepCount;
     }
 
+
     /**
      * Gets yesterdays stepCount from SharedPreferences.
      * @return yesterdays int stepCount
      */
-    public static int readYesterdaysStepCountInPref(Context context){
+    public static void writeStepCompensatorInPref(Context context, int stepCompensator){
+        SharedPreferences sharedPref = context.getSharedPreferences("StepCount", Context.MODE_PRIVATE);
+        SharedPreferences.Editor prefEditor = sharedPref.edit();
+        prefEditor.putInt(stepCompensatorKey, stepCompensator);
+        prefEditor.commit();
+    }
 
-        SharedPreferences sharedPref = context.getSharedPreferences("YesterdaysStepCounts", Context.MODE_PRIVATE);
-        int yesterdayStepCount = sharedPref.getInt(yesterdaysStepCountKey, 0);
-        return yesterdayStepCount;
+    public static int readStepCompensatorInPref(Context context){
+
+        SharedPreferences sharedPref = context.getSharedPreferences("StepCompensator", Context.MODE_PRIVATE);
+        int stepCompensator = sharedPref.getInt(stepCompensatorKey, 0);
+        return stepCompensator;
     }
 
     /**
