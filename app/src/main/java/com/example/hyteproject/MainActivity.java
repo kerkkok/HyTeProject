@@ -6,6 +6,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private int stepCount = 0;
     private int stepCountCompensator = 0;
     private int stepReset = 0;
-
+    private final String firstLaunch = "firstLaunch";
     private EditText weightInput;
     private EditText heightInput;
     private TextView textViewCalculatedBMI;
@@ -75,8 +76,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         bmiWeightHintString = getString(R.string.weight_input);
         bmiHeightHintString = getString(R.string.height_input);
 
-
-        setTime();
+        firstTimeLaunch();
     }
 
 
@@ -196,6 +196,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         Intent intent = new Intent(this, DailyReset.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,intent, 0);
         alarmManager.setRepeating(AlarmManager.RTC, time, AlarmManager.INTERVAL_DAY, pendingIntent);
+    }
+
+    /**
+     * Checks if the application has ever been launched with the help of SharedPreferences, if application started first time, runs the code inside.
+     */
+    private void firstTimeLaunch(){
+        SharedPreferences prefEdit = getSharedPreferences(firstLaunch, 0);
+        if (prefEdit.getBoolean("FirstLaunch", true)) {
+            setTime();
+            prefEdit.edit().putBoolean("FirstLaunch", false).commit();
+        }
     }
 
 
