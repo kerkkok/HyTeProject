@@ -18,15 +18,17 @@ public class DailyReset extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent){
-
-        SharedPreferences yesterdaysCaloriesPref = context.getSharedPreferences("YesterdaysCalorieInformation", Context.MODE_PRIVATE); // Gets yesterdays calories SharedPreferences and empties it //
+        // Gets yesterdays calories SharedPreferences and empties it
+        SharedPreferences yesterdaysCaloriesPref = context.getSharedPreferences("YesterdaysCalorieInformation", Context.MODE_PRIVATE);
         yesterdaysCaloriesPref.edit().clear().commit();
 
-        SharedPreferences totalCaloriesInformationSharedPref = context.getSharedPreferences("TotalCaloriesInformation", Context.MODE_PRIVATE); // Gets today's calories and puts it in yesterdaysCalories variable before resetting SharedPreferences  //
+        // Gets today's calories and puts it in yesterdaysCalories variable before resetting SharedPreferences
+        SharedPreferences totalCaloriesInformationSharedPref = context.getSharedPreferences("TotalCaloriesInformation", Context.MODE_PRIVATE);
         yesterdaysCalories = DataManager.readCaloriesInPref(context);
         totalCaloriesInformationSharedPref.edit().clear().commit();
 
-        SharedPreferences.Editor YesterdayCaloriesPrefEditor = yesterdaysCaloriesPref.edit(); // Puts the yesterdaysCalories variable in yesterdays calories SharedPreferences  //
+        // Puts the yesterdaysCalories variable in yesterdays calories SharedPreferences
+        SharedPreferences.Editor YesterdayCaloriesPrefEditor = yesterdaysCaloriesPref.edit();
         YesterdayCaloriesPrefEditor.putInt(yesterdaysCaloriesKey, yesterdaysCalories);
         YesterdayCaloriesPrefEditor.commit();
     }

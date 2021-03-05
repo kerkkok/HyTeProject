@@ -25,6 +25,10 @@ import androidx.core.content.ContextCompat;
 
 import java.util.Calendar;
 
+/**
+ * EXPLANATION OF CLASS HERE
+ * @author Malin Mortti, Kyyrö Kerkko, Aaro Musse, Joona Sillanpää
+ */
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
     private TextView textViewStep;
     private SensorManager sensorManager;
@@ -153,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 Log.e("BMIConversionError", "Failed to determine unit type");
             }
 
-            String bmin = String.valueOf(bmi);
+            String bmin = String.format("%.02f", bmi);
             textViewCalculatedBMI.setText("Your BMI is " + bmin);
         } else {
             Toast.makeText(this, "Please insert both weight and height", Toast.LENGTH_SHORT).show();

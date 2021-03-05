@@ -45,7 +45,7 @@ public class FoodDiary extends AppCompatActivity {
         textViewCalorieCounter = findViewById(R.id.textViewTotalCalories);
         textViewTotalCalorieTarget = findViewById(R.id.textViewTotalCalorieTarget);
 
-        /* Reads ArrayList from SharedPreferences, if ArrayList doesn't exist, creates one. */
+        // Reads ArrayList from SharedPreferences, if ArrayList doesn't exist, creates one.
         foodList = DataManager.readArrayFromPref(this);
         if (foodList == null) {
             foodList = new ArrayList<Food>(); }
@@ -59,7 +59,7 @@ public class FoodDiary extends AppCompatActivity {
         totalCalories = DataManager.readCaloriesInPref(this);
         textViewCalorieCounter.setText(Integer.toString(totalCalories));
 
-        /* Removes clicked food from the list and takes it away from the totalCalories count. */
+        // Removes clicked food from the list and takes it away from the totalCalories count.
         foodListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -77,10 +77,6 @@ public class FoodDiary extends AppCompatActivity {
                 }
             }
         });
-
-        /* recreate() */
-
-
     }
     /**
      * Submits the user input for food name and calorie amount to a list and shows it to the user
