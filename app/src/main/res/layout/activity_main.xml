@@ -8,7 +8,7 @@
 
     <ScrollView
         android:id="@+id/scrollView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -42,10 +42,7 @@
                         android:contentDescription="@string/settings_button"
                         android:onClick="goToSettings"
                         android:scaleType="fitXY"
-                        app:iconTint="?attr/colorControlNormal"
                         app:srcCompat="@drawable/settings" />
-
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -69,13 +66,6 @@
                         android:text="@string/steps"
                         android:textAlignment="center"
                         android:textSize="28sp" />
-
-                    <Button
-                        android:id="@+id/resButt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:onClick="resetStepsButton"
-                        android:text="@string/reset_button" />
 
                 </LinearLayout>
 
