@@ -116,7 +116,7 @@ public class DataManager {
      * @return yesterdays int stepCount
      */
     public static void writeStepCompensatorInPref(Context context, int stepCompensator){
-        SharedPreferences sharedPref = context.getSharedPreferences("StepCount", Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = context.getSharedPreferences("StepCompensator", Context.MODE_PRIVATE);
         SharedPreferences.Editor prefEditor = sharedPref.edit();
         prefEditor.putInt(stepCompensatorKey, stepCompensator);
         prefEditor.commit();
