@@ -49,21 +49,21 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textViewStepCounterSettingsTitle"
+                        android:id="@+id/textViewFoodDiarySettingsTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/step_counter"
+                        android:text="@string/food_diary"
                         android:textAlignment="center"
                         android:textSize="36sp" />
 
                     <EditText
-                        android:id="@+id/editTextStepTarget"
+                        android:id="@+id/editTextCalorieTarget"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:autofillHints=""
                         android:ems="10"
-                        android:hint="@string/step_target"
+                        android:hint="@string/calorie_target"
                         android:inputType="number"
                         android:textAlignment="center" />
                 </LinearLayout>
@@ -79,32 +79,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="60sp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textViewFoodDiarySettingsTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/food_diary"
-                    android:textAlignment="center"
-                    android:textSize="36sp" />
-
-                <EditText
-                    android:id="@+id/editTextCalorieTarget"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:autofillHints=""
-                    android:ems="10"
-                    android:hint="@string/calorie_target"
-                    android:inputType="number"
-                    android:textAlignment="center" />
             </LinearLayout>
 
             <LinearLayout

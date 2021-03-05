@@ -16,9 +16,9 @@ import android.widget.RadioGroup;
 public class Settings extends AppCompatActivity {
 
     private EditText editTextCalorieTarget;
-
     private RadioGroup radioGroupBMI;
-    private int selectedButton = 0;
+    private int selectedButton, selectedButtonTag = 0;
+    private String targetCalories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +39,13 @@ public class Settings extends AppCompatActivity {
 
     protected void onResume() {
         super.onResume();
-        String tC = DataManager.readTargetCaloriesInPref(this);
-        editTextCalorieTarget.setText(tC);
+        targetCalories = DataManager.readTargetCaloriesInPref(this);
+        editTextCalorieTarget.setText(targetCalories);
 
-        int i = DataManager.readBMISettingInPref(this);
-        if (i == 0) {
+        selectedButtonTag = DataManager.readBMISettingInPref(this);
+        if (selectedButtonTag == 0) {
             radioGroupBMI.check(R.id.radioButtonMetric);
-        } else if (i == 1) {
+        } else if (selectedButtonTag == 1) {
             radioGroupBMI.check(R.id.radioButtonImperial);
         }
     }
@@ -59,7 +59,7 @@ public class Settings extends AppCompatActivity {
      * Calls methods to save user settings.
      */
     public void saveSettings () {
-        String targetCalories = editTextCalorieTarget.getText().toString();
+        targetCalories = editTextCalorieTarget.getText().toString();
         DataManager.writeTargetCaloriesInPref(getApplicationContext(), targetCalories);
 
         selectedButton = radioGroupBMI.getCheckedRadioButtonId();
