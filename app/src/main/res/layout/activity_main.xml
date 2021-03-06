@@ -67,6 +67,13 @@
                         android:textAlignment="center"
                         android:textSize="36sp" />
 
+                    <Button
+                        android:id="@+id/resButt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="resetStepsButton"
+                        android:text="@string/reset_button" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -201,7 +208,7 @@
                 <Button
                     android:id="@+id/bmiButton"
                     android:layout_width="match_parent"
-                    android:layout_height="100sp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="20sp"
                     android:layout_marginTop="20sp"
