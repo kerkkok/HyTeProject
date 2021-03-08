@@ -71,6 +71,7 @@
                         android:id="@+id/resButt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:backgroundTint="#14B381"
                         android:onClick="resetStepsButton"
                         android:text="@string/reset_button" />
 
