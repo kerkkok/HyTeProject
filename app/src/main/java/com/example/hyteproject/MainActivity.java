@@ -26,7 +26,7 @@ import androidx.core.content.ContextCompat;
 import java.util.Calendar;
 
 /**
- * MainActivity contains the Step Counter sensor, Reset Button for the stepcount, BMI Calculator in its entirety, and buttons for the other Activities
+ * MainActivity contains the Step Counter sensor, Reset Button for the stepCount, BMI Calculator in its entirety, and buttons for the other Activities
  * @author Malin Mortti, Kyyrö Kerkko, Aaro Musse, Joona Sillanpää
  */
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
